@@ -874,44 +874,32 @@ btnContinuar.addEventListener(
                 return;
             }
 
-            if (btnContinuar.disabled) {
+            if (btnContinuar.disabled ||
+                !document.getElementById('resultadoValidacionIndependiente')?.childNodes.length) {
                 return;
             }
 
             pasoMigracion.classList.add('d-none');
             pasoValidacion.classList.remove('d-none');
-            // MOSTRAR RESULTADOS EN LA ETAPA 5
-const contenedorResultados =
-    document.getElementById('contenedorResultadosValidacion');
+            // Mover el reporte original a la etapa 5, sin clonarlo.
+            // Así se conservan los eventos del botón «Analizar con IA».
+            const contenedorResultados =
+                document.getElementById('contenedorResultadosValidacion');
+            const reporteValidacion =
+                document.getElementById('resultadoValidacionIndependiente');
 
-const reporteValidacion =
-    document.getElementById('resultadoValidacionIndependiente');
-
-if (contenedorResultados) {
-
-    contenedorResultados.innerHTML = '';
-
-    if (reporteValidacion && reporteValidacion.innerHTML.trim()) {
-
-        const copiaReporte = reporteValidacion.cloneNode(true);
-
-        copiaReporte.removeAttribute('id');
-        copiaReporte.classList.remove('d-none');
-
-        contenedorResultados.appendChild(copiaReporte);
-
-    } else {
-
-        contenedorResultados.innerHTML = `
-            <div class="alert alert-warning">
-                <i class="bi bi-exclamation-triangle"></i>
-                No se encontraron resultados de validación.
-                Regresa a Migración y ejecuta
-                "Validar integridad".
-            </div>
-        `;
-    }
-}
+            if (contenedorResultados) {
+                contenedorResultados.replaceChildren();
+                if (reporteValidacion && reporteValidacion.childNodes.length) {
+                    reporteValidacion.classList.remove('d-none');
+                    contenedorResultados.appendChild(reporteValidacion);
+                } else {
+                    contenedorResultados.innerHTML = `
+                        <div class="alert alert-warning">
+                            No se encontraron resultados de validación.
+                        </div>`;
+                }
+            }
 
             pasoActual = 5;
             // ACTUALIZAR MENSAJE INFORMATIVO DE LA ETAPA 5
@@ -1729,6 +1717,27 @@ if (pasoActual === 5) {
     // Ocultar validación y mostrar migración
     pasoValidacion.classList.add('d-none');
     pasoMigracion.classList.remove('d-none');
+
+    // Regresar el reporte al paso 4, pero mantenerlo oculto.
+    // Al volver se muestra únicamente el resumen de ejecución.
+    const reporteIndependiente =
+        document.getElementById('resultadoValidacionIndependiente');
+    if (reporteIndependiente) {
+        resultadoMigracion.after(reporteIndependiente);
+        reporteIndependiente.classList.add('d-none');
+    }
+    if (resultadoMigracion.innerHTML.trim()) {
+        resultadoMigracion.classList.remove('d-none');
+    }
+    // Recuperar el estado informativo de la migración, sin sustituir
+    // el reporte que se generó al presionar «Ejecutar migración».
+    if (resultadoMigracion.classList.contains('error')) {
+        estadoMigracion.className = 'migration-execution-status error';
+        estadoMigracion.textContent = 'Migración con errores';
+    } else if (resultadoMigracion.innerHTML.trim()) {
+        estadoMigracion.className = 'migration-execution-status success';
+        estadoMigracion.textContent = 'Migración completada';
+    }
     // RESTAURAR MENSAJE INFORMATIVO DE MIGRACIÓN
 const mensajeInformativo =
     document.getElementById('mensajeInformativo');
@@ -1774,7 +1783,7 @@ if (mensajeInformativo) {
         Volver a transformación
     `;
 
-    btnContinuar.classList.remove('d-none');
+    btnContinuar.classList.add('d-none');
     btnContinuar.disabled = false;
 
     btnContinuar.innerHTML = `
@@ -2777,7 +2786,7 @@ function mostrarPasoMigracion() {
         mediante su propio botón.
     */
 
-   btnContinuar.classList.remove('d-none');
+   btnContinuar.classList.add('d-none');
 
 btnContinuar.disabled = true;
 
@@ -3598,9 +3607,7 @@ async function validarIntegridadIndependiente() {
 
     contenedor.innerHTML = '';
 
-    // Mostrar solo la validación independiente al pulsar «Validar integridad».
-    // El reporte de migración se conserva en memoria y no se altera el historial.
-    resultadoMigracion.classList.add('d-none');
+    // El reporte de migración permanece disponible al regresar al paso 4.
 
     try {
 
@@ -4130,15 +4137,11 @@ if (typeof marked === 'undefined' ||
         panelIA.appendChild(cuerpoIA);
         contenedor.appendChild(panelIA);
 
-        // Habilitar la etapa 5 cuando el reporte ya está preparado
-btnContinuar.disabled = false;
-
-btnContinuar.classList.remove('d-none');
-
-btnContinuar.innerHTML = `
-    Continuar a validación
-    <i class="bi bi-arrow-right"></i>
-`;
+        // Ir automáticamente al paso 5 cuando finaliza la validación.
+        // El manejador de Continuar traslada el reporte original y
+        // conserva el funcionamiento de «Analizar con IA».
+        btnContinuar.disabled = false;
+        btnContinuar.click();
 
         console.log(
             'Resultado de validación independiente:',
