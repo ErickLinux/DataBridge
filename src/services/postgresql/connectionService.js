@@ -1,18 +1,24 @@
+
 const { Client } = require('pg');
 
 async function testPostgreSQLConnection(config) {
+    const host = String(config.host || '').trim();
+
+    const esNeon = (
+        host.endsWith('.neon.tech')
+    );
 
     const client = new Client({
-        host: config.host,
+        host,
         port: Number(config.port),
         database: config.database,
         user: config.user,
         password: config.password,
+        ssl: esNeon ? { rejectUnauthorized: true } : false,
         connectionTimeoutMillis: 5000
     });
 
     try {
-
         await client.connect();
 
         const result = await client.query(`
@@ -28,20 +34,17 @@ async function testPostgreSQLConnection(config) {
         };
 
     } catch (error) {
-
         return {
             success: false,
             error: error.message
         };
 
     } finally {
-
         try {
             await client.end();
         } catch (error) {
             // La conexión pudo no haberse establecido.
         }
-
     }
 }
 
