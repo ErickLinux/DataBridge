@@ -3598,6 +3598,10 @@ async function validarIntegridadIndependiente() {
 
     contenedor.innerHTML = '';
 
+    // Mostrar solo la validación independiente al pulsar «Validar integridad».
+    // El reporte de migración se conserva en memoria y no se altera el historial.
+    resultadoMigracion.classList.add('d-none');
+
     try {
 
         const response = await fetch(
