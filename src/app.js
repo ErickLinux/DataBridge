@@ -15,7 +15,7 @@ const validationRoutes =
     require('./routes/validationRoutes');
     const historialRoutes =
     require('./routes/historialRoutes');
-
+const aiRoutes = require('./routes/aiRoutes');
 const app = express();
 
 // Middleware
@@ -36,6 +36,7 @@ app.use('/api/transformacion',transformationRoutes);
 app.use('/api/migraciones',migrationRoutes);
 app.use('/api/validacion', validationRoutes);
 app.use('/api/historial', historialRoutes);
+app.use('/api/ia', aiRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {

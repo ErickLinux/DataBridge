@@ -2586,3 +2586,101 @@ input:disabled + span {
     }
 
 }
+
+
+
+/* =========================================
+   DATABRIDGE - ANÁLISIS CON IA
+========================================= */
+
+.analisis-ia {
+    margin-top: 20px;
+    padding: 24px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    color: #334155;
+    font-size: 14px;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+}
+
+/* Títulos del análisis */
+.analisis-ia h1,
+.analisis-ia h2,
+.analisis-ia h3 {
+    color: #12345b;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #dbeafe;
+}
+
+.analisis-ia h1 { font-size: 21px; }
+.analisis-ia h2 { font-size: 18px; }
+.analisis-ia h3 { font-size: 16px; }
+
+/* Párrafos y listas */
+.analisis-ia p {
+    margin-bottom: 14px;
+}
+
+.analisis-ia ul,
+.analisis-ia ol {
+    padding-left: 25px;
+    margin-bottom: 18px;
+}
+
+.analisis-ia li {
+    margin-bottom: 8px;
+}
+
+/* Tablas generadas por IA */
+.analisis-ia table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    background: #ffffff;
+    font-size: 13px;
+}
+
+.analisis-ia th {
+    background: #e8f1ff;
+    color: #12345b;
+    font-weight: 700;
+}
+
+.analisis-ia th,
+.analisis-ia td {
+    padding: 12px;
+    border: 1px solid #dbe3ee;
+    text-align: left;
+    vertical-align: top;
+}
+
+.analisis-ia tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* Código técnico */
+.analisis-ia code {
+    padding: 2px 5px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    color: #9d174d;
+    font-size: 12px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    .analisis-ia {
+        padding: 15px;
+        font-size: 13px;
+    }
+
+    .analisis-ia table {
+        display: block;
+        overflow-x: auto;
+    }
+}

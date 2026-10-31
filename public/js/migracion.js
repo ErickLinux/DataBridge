@@ -140,6 +140,24 @@ let pasoActual = 1;
 let esquemaPostgreSQL = null;
 let tablasSeleccionadas = new Set();
 let propuestaTransformacion = null;
+
+/* Invalidar resultados temporales cuando cambia la operación actual.
+   No modifica el historial ni los datos en las bases de datos. */
+function limpiarValidacionAnterior() {
+    const reporte = document.getElementById('resultadoValidacionIndependiente');
+    if (reporte) reporte.replaceChildren();
+
+    const contenedorFinal = document.getElementById('contenedorResultadosValidacion');
+    if (contenedorFinal) contenedorFinal.replaceChildren();
+
+    sessionStorage.removeItem('ultimoReporteValidacion');
+
+    // Impedir avanzar a la etapa 5 con resultados de otra operación.
+    if (pasoActual === 4) {
+        btnContinuar.disabled = true;
+    }
+}
+
 /* ========================================
    NOTIFICACIONES VISUALES DATABRIDGE
    No requiere modificar el HTML.
@@ -581,6 +599,8 @@ mongoForm.addEventListener(
             'input',
             () => {
 
+                limpiarValidacionAnterior();
+
                 if (postgresqlVerificado) {
 
                     postgresqlVerificado = false;
@@ -615,6 +635,8 @@ mongoForm.addEventListener(
         .addEventListener(
             'input',
             () => {
+
+                limpiarValidacionAnterior();
 
                 if (mongodbVerificado) {
 
@@ -1387,6 +1409,7 @@ function configurarEventosTablas() {
                         const tableName =
                             checkbox.dataset.table;
 
+                        limpiarValidacionAnterior();
 
                         if (checkbox.checked) {
 
@@ -1472,6 +1495,10 @@ btnSeleccionarTodas.addEventListener(
     'click',
     () => {
 
+        if (document.querySelector('.schema-table-check:not(:checked)')) {
+            limpiarValidacionAnterior();
+        }
+
         document
             .querySelectorAll(
                 '.schema-table-check'
@@ -1506,6 +1533,10 @@ btnSeleccionarTodas.addEventListener(
 btnDeseleccionarTodas.addEventListener(
     'click',
     () => {
+
+        if (tablasSeleccionadas.size > 0) {
+            limpiarValidacionAnterior();
+        }
 
         document
             .querySelectorAll(
@@ -2493,6 +2524,9 @@ function configurarEventosTransformacion() {
 
                         if (transformation) {
 
+                            if (transformation.destinationCollection !== input.value.trim()) {
+                                limpiarValidacionAnterior();
+                            }
                             transformation
                                 .destinationCollection =
                                 input.value.trim();
@@ -2551,6 +2585,9 @@ function configurarEventosTransformacion() {
 
                         if (relationship) {
 
+                            if (relationship.strategy !== radio.value) {
+                                limpiarValidacionAnterior();
+                            }
                             relationship.strategy =
                                 radio.value;
 
@@ -2894,6 +2931,8 @@ async function ejecutarMigracion() {
     ) {
         return;
     }
+
+    limpiarValidacionAnterior();
 
     const postgresql = {
 
@@ -3983,6 +4022,110 @@ conclusion.append(tituloConclusion, textoConclusion);
 panel.appendChild(conclusion);
 
         contenedor.appendChild(panel);
+        
+        // ANÁLISIS DE INTEGRIDAD CON INTELIGENCIA ARTIFICIAL
+        const panelIA = document.createElement('div');
+        panelIA.className = 'card border-primary mt-4';
+
+        const cuerpoIA = document.createElement('div');
+        cuerpoIA.className = 'card-body';
+
+        const tituloIA = document.createElement('h5');
+        tituloIA.className = 'card-title fw-bold';
+        tituloIA.textContent = 'Asistente de inteligencia artificial';
+
+        const descripcionIA = document.createElement('p');
+        descripcionIA.className = 'text-secondary';
+        descripcionIA.textContent =
+    'El asistente de inteligencia artificial analiza los resultados ' +
+    'de integridad y ofrece explicaciones y recomendaciones técnicas.';
+
+        const botonIA = document.createElement('button');
+        botonIA.type = 'button';
+        botonIA.className = 'btn btn-primary';
+        botonIA.textContent = 'Analizar con IA';
+
+        const resultadoIA = document.createElement('div');
+resultadoIA.className = 'mt-3 analisis-ia';
+resultadoIA.style.whiteSpace = 'normal';
+
+        botonIA.addEventListener('click', async () => {
+            botonIA.disabled = true;
+            botonIA.textContent = 'Analizando con IA...';
+            resultadoIA.textContent = 'Generando recomendaciones...';
+
+            try {
+                const response = await fetch('/api/ia/analizar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        validacion: {
+                            contentValidation: {
+                                totalCorrect: contenido.totalCorrect,
+                                totalInconsistent: contenido.totalInconsistent,
+                                totalMissing: contenido.totalMissing,
+                                integrityPercentage: contenido.integrityPercentage,
+                                // Solo metadatos: no enviar claves ni valores de registros.
+                                results: (Array.isArray(contenido.results) ? contenido.results : []).map(tabla => ({
+                                    table: tabla.table,
+                                    status: tabla.status,
+                                    verified: tabla.verified,
+                                    correct: tabla.correct,
+                                    errors: (Array.isArray(tabla.errors) ? tabla.errors : []).map(error => ({
+                                        type: error.type,
+                                        differences: (Array.isArray(error.differences) ? error.differences : []).map(diferencia => ({
+                                            field: diferencia.field,
+                                            type: diferencia.type
+                                        }))
+                                    }))
+                                }))
+                            }
+                        }
+                    })
+                });
+
+                if (response.status === 401) {
+                    cerrarSesion();
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || 'No se pudo generar el análisis.'
+                    );
+                }
+
+                
+const analisis = data.data.analisis;
+
+if (typeof marked === 'undefined' ||
+    typeof DOMPurify === 'undefined') {
+    resultadoIA.textContent = analisis;
+    console.warn('Marked o DOMPurify no están disponibles.');
+} else {
+    const html = marked.parse(analisis);
+    resultadoIA.innerHTML = DOMPurify.sanitize(html);
+}
+
+
+            } catch (error) {
+                resultadoIA.textContent =
+                    'Error al consultar la IA: ' + error.message;
+            } finally {
+                botonIA.disabled = false;
+                botonIA.textContent = 'Analizar con IA';
+            }
+        });
+
+        cuerpoIA.append(tituloIA, descripcionIA, botonIA, resultadoIA);
+        panelIA.appendChild(cuerpoIA);
+        contenedor.appendChild(panelIA);
+
         // Habilitar la etapa 5 cuando el reporte ya está preparado
 btnContinuar.disabled = false;
 
