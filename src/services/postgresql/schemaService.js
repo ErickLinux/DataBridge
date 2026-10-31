@@ -8,6 +8,9 @@ async function analyzePostgreSQLSchema(config) {
         database: config.database,
         user: config.user,
         password: config.password,
+        ssl: String(config.host || '').trim().toLowerCase().endsWith('.neon.tech')
+            ? { rejectUnauthorized: true }
+            : false,
         connectionTimeoutMillis: 5000
     });
 

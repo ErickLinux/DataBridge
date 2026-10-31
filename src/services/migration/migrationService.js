@@ -472,6 +472,9 @@ async function executeMigration({
             database: postgresql.database,
             user: postgresql.user,
             password: postgresql.password,
+            ssl: String(postgresql.host || '').trim().toLowerCase().endsWith('.neon.tech')
+                ? { rejectUnauthorized: true }
+                : false,
 
             connectionTimeoutMillis: 5000
 
