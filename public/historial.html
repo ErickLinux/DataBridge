@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Historial de migraciones | DataBridge</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Estilos existentes -->
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+</head>
+
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg app-navbar">
+        <div class="container-fluid app-container">
+
+            <a class="navbar-brand brand" href="/dashboard.html">
+
+                <div class="brand-symbol">
+                    <i class="bi bi-database-fill"></i>
+                </div>
+
+                <div>
+                    <div class="brand-name">DataBridge</div>
+                    <div class="brand-description">
+                        Database Migration Tool
+                    </div>
+                </div>
+
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Abrir navegación">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="mainNavbar">
+
+                <ul class="navbar-nav mx-lg-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard.html">
+                            <i class="bi bi-grid"></i>
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/migracion.html">
+                            <i class="bi bi-arrow-left-right"></i>
+                            Migraciones
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/historial.html"
+                           aria-current="page">
+                            <i class="bi bi-clock-history"></i>
+                            Historial
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reportes.html">
+                            <i class="bi bi-bar-chart"></i>
+                            Reportes
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="account">
+
+                    <div class="account-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+
+                    <div class="account-info">
+                        <span>Usuario</span>
+                        <strong id="nombreUsuario">Usuario</strong>
+                    </div>
+
+                    <button
+                        id="btnCerrarSesion"
+                        class="logout-btn"
+                        title="Cerrar sesión">
+
+                        <i class="bi bi-box-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="app-container main-content">
+
+        <div class="page-context">
+            <span>Workspace</span>
+            <i class="bi bi-chevron-right"></i>
+            <strong>Historial</strong>
+        </div>
+
+        <!-- ENCABEZADO -->
+        <section class="mb-4">
+
+            <div class="d-flex flex-wrap
+                        justify-content-between
+                        align-items-center gap-3">
+
+                <div>
+
+                    <h1 class="fw-bold mb-2">
+                        <i class="bi bi-clock-history me-2"></i>
+                        Historial de migraciones
+                    </h1>
+
+                    <p class="text-secondary mb-0">
+                        Consulta las migraciones realizadas
+                        y sus resultados de ejecución.
+                    </p>
+
+                </div>
+
+                <a href="/migracion.html"
+                   class="btn btn-primary">
+
+                    <i class="bi bi-plus-lg me-2"></i>
+                    Nueva migración
+
+                </a>
+
+            </div>
+
+        </section>
+        <!-- INDICADORES DEL HISTORIAL -->
+<section class="row g-3 mb-4">
+
+    <div class="col-md-4">
+        <div class="workspace-panel h-100">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-database fs-2 text-primary"></i>
+                <div>
+                    <p class="text-secondary mb-1">
+                        Total de migraciones
+                    </p>
+                    <h2 id="totalMigraciones" class="mb-0">
+                        0
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="workspace-panel h-100">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle fs-2 text-success"></i>
+                <div>
+                    <p class="text-secondary mb-1">
+                        Migraciones completadas
+                    </p>
+                    <h2 id="migracionesCompletadas" class="mb-0">
+                        0
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="workspace-panel h-100">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-exclamation-triangle fs-2 text-danger"></i>
+                <div>
+                    <p class="text-secondary mb-1">
+                        Migraciones con errores
+                    </p>
+                    <h2 id="migracionesErrores" class="mb-0">
+                        0
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+        <!-- TABLA DEL HISTORIAL -->
+        <section class="workspace-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="panel-eyebrow">
+                        REGISTROS
+                    </span>
+
+                    <h2>Operaciones realizadas</h2>
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Base origen</th>
+                            <th>Base destino</th>
+                            <th>Registros</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaHistorial">
+
+                        <tr>
+                            <td colspan="7"
+                                class="text-center text-secondary py-5">
+
+                                <i class="bi bi-clock-history fs-2 d-block mb-2"></i>
+
+                                No hay migraciones registradas.
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+    <!-- VENTANA DE DETALLES DE MIGRACIÓN -->
+<div class="modal fade"
+     id="modalDetalleMigracion"
+     tabindex="-1"
+     aria-labelledby="tituloDetalleMigracion"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="tituloDetalleMigracion">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Detalles de la migración
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <strong>ID de migración</strong>
+                        <p id="detalleId">-</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong>Fecha de ejecución</strong>
+                        <p id="detalleFecha">-</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong>Base de origen</strong>
+                        <p id="detalleOrigen">-</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong>Base de destino</strong>
+                        <p id="detalleDestino">-</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong>Registros migrados</strong>
+                        <p id="detalleRegistros">-</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong>Estado</strong>
+                        <p id="detalleEstado">-</p>
+                    </div>
+
+                    <div class="col-12">
+                        <strong>Observaciones</strong>
+                        <p id="detalleObservaciones"
+                           class="text-secondary mt-2">
+                            -
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- Bootstrap -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    </script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/historial.js"></script>
+    
+</body>
+</html>

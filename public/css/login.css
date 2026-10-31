@@ -1,0 +1,40 @@
+body {
+    background-color: #f5f7fa;
+}
+
+.panel-info {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+}
+
+.panel-info h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+
+.panel-info p {
+    font-size: 1.1rem;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+    padding: 30px;
+}
+
+.login-container h2 {
+    font-weight: 700;
+}
+
+.form-control {
+    min-height: 48px;
+}
+
+.btn-primary {
+    min-height: 48px;
+    font-weight: 600;
+}

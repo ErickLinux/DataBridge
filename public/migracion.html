@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nueva migración | DataBridge</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/migracion.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+    <nav class="navbar navbar-expand-lg app-navbar">
+
+        <div class="container-fluid app-container">
+
+            <a
+                class="navbar-brand brand"
+                href="/dashboard.html"
+            >
+
+                <div class="brand-symbol">
+                    <i class="bi bi-database-fill"></i>
+                </div>
+
+                <div>
+                    <div class="brand-name">
+                        DataBridge
+                    </div>
+
+                    <div class="brand-description">
+                        Database Migration Tool
+                    </div>
+                </div>
+
+            </a>
+
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div
+                class="collapse navbar-collapse"
+                id="mainNavbar"
+            >
+
+                <ul class="navbar-nav mx-lg-auto">
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="/dashboard.html"
+                        >
+                            <i class="bi bi-grid"></i>
+                            Dashboard
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link active"
+                            href="/migracion.html"
+                        >
+                            <i class="bi bi-arrow-left-right"></i>
+                            Migraciones
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="/historial.html"
+                        >
+                            <i class="bi bi-clock-history"></i>
+                            Historial
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="/reportes.html"
+                        >
+                            <i class="bi bi-bar-chart"></i>
+                            Reportes
+                        </a>
+                    </li>
+
+                </ul>
+
+
+                <div class="account">
+
+                    <div class="account-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+
+                    <div class="account-info">
+                        <span>Usuario</span>
+                        <strong id="nombreUsuario">
+                            Usuario
+                        </strong>
+                    </div>
+
+                    <button
+                        id="btnCerrarSesion"
+                        class="logout-btn"
+                        title="Cerrar sesión"
+                        type="button"
+                    >
+                        <i class="bi bi-box-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================
+         CONTENIDO
+    ========================================== -->
+    <main class="app-container main-content">
+
+
+        <!-- BREADCRUMB -->
+        <div class="page-context">
+
+            <a href="/dashboard.html">
+                Workspace
+            </a>
+
+            <i class="bi bi-chevron-right"></i>
+
+            <span>
+                Migraciones
+            </span>
+
+            <i class="bi bi-chevron-right"></i>
+
+            <strong>
+                Nueva migración
+            </strong>
+
+        </div>
+
+
+
+        <!-- =====================================
+             ENCABEZADO
+        ====================================== -->
+        <section class="page-header">
+
+            <div>
+
+                <span class="page-label">
+                    NUEVO PROCESO
+                </span>
+
+                <h1>
+                    Nueva migración
+                </h1>
+
+                <p>
+                    Configura y ejecuta el proceso de migración
+                    desde PostgreSQL hacia MongoDB.
+                </p>
+
+            </div>
+
+
+            <div class="migration-badge">
+
+                PostgreSQL
+
+                <i class="bi bi-arrow-right"></i>
+
+                MongoDB
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             STEPPER
+        ====================================== -->
+        <section class="stepper">
+
+            <div class="step active">
+
+                <div class="step-circle">
+                    1
+                </div>
+
+                <div>
+                    <strong>
+                        Conexiones
+                    </strong>
+
+                    <span>
+                        Origen y destino
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step">
+
+                <div class="step-circle">
+                    2
+                </div>
+
+                <div>
+                    <strong>
+                        Esquema
+                    </strong>
+
+                    <span>
+                        Estructuras
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step">
+
+                <div class="step-circle">
+                    3
+                </div>
+
+                <div>
+                    <strong>
+                        Transformación
+                    </strong>
+
+                    <span>
+                        Reglas
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step">
+
+                <div class="step-circle">
+                    4
+                </div>
+
+                <div>
+                    <strong>
+                        Migración
+                    </strong>
+
+                    <span>
+                        Ejecución
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step">
+
+                <div class="step-circle">
+                    5
+                </div>
+
+                <div>
+                    <strong>
+                        Validación
+                    </strong>
+
+                    <span>
+                        Resultados
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             INFORMACIÓN
+        ====================================== -->
+        <div
+            id="mensajeInformativo"
+            class="info-message"
+        >
+
+            <i class="bi bi-info-circle"></i>
+
+            <div>
+
+                <strong>
+                    Configuración de conexiones
+                </strong>
+
+                <span>
+                    Ingresa las credenciales de las bases de datos.
+                    La conexión será verificada antes de continuar.
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================
+             PASO 1
+             CONEXIONES
+        ====================================== -->
+        <section id="pasoConexiones">
+
+
+            <section class="connections-grid">
+
+
+                <!-- =============================
+                     POSTGRESQL
+                ============================== -->
+                <div class="connection-card">
+
+                    <div class="connection-header">
+
+                        <div class="database-title">
+
+                            <div class="database-icon postgres">
+                                <i class="bi bi-database-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    BASE DE DATOS DE ORIGEN
+                                </span>
+
+                                <h2>
+                                    PostgreSQL
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="estadoPostgreSQL"
+                            class="connection-status neutral"
+                        >
+                            <span></span>
+                            Sin verificar
+                        </div>
+
+                    </div>
+
+
+
+                    <form id="postgresForm">
+
+                        <div class="row g-3">
+
+
+                            <!-- HOST -->
+                            <div class="col-md-8">
+
+                                <label
+                                    for="pgHost"
+                                    class="form-label"
+                                >
+                                    Servidor
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="pgHost"
+                                    value="localhost"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- PUERTO -->
+                            <div class="col-md-4">
+
+                                <label
+                                    for="pgPort"
+                                    class="form-label"
+                                >
+                                    Puerto
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="pgPort"
+                                    value="5432"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- BASE -->
+                            <div class="col-12">
+
+                                <label
+                                    for="pgDatabase"
+                                    class="form-label"
+                                >
+                                    Base de datos
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="pgDatabase"
+                                    placeholder="Ej. sistema_ventas"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- USUARIO -->
+                            <div class="col-12">
+
+                                <label
+                                    for="pgUser"
+                                    class="form-label"
+                                >
+                                    Usuario
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="pgUser"
+                                    placeholder="Ej. postgres"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- PASSWORD -->
+                            <div class="col-12">
+
+                                <label
+                                    for="pgPassword"
+                                    class="form-label"
+                                >
+                                    Contraseña
+                                </label>
+
+                                <div class="password-wrapper">
+
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="pgPassword"
+                                        autocomplete="current-password"
+                                        required
+                                    >
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        id="togglePgPassword"
+                                        title="Mostrar contraseña"
+                                    >
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div
+                            id="mensajePostgreSQL"
+                            class="connection-message d-none"
+                        >
+                        </div>
+
+
+
+                        <button
+                            type="submit"
+                            id="btnProbarPostgreSQL"
+                            class="btn test-button"
+                        >
+                            <i class="bi bi-plug"></i>
+                            Probar conexión
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- =============================
+                     MONGODB
+                ============================== -->
+                <div class="connection-card">
+
+                    <div class="connection-header">
+
+                        <div class="database-title">
+
+                            <div class="database-icon mongo">
+                                <i class="bi bi-database-fill-check"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    BASE DE DATOS DE DESTINO
+                                </span>
+
+                                <h2>
+                                    MongoDB
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="estadoMongoDB"
+                            class="connection-status neutral"
+                        >
+                            <span></span>
+                            Sin verificar
+                        </div>
+
+                    </div>
+
+
+
+                    <form id="mongoForm">
+
+                        <div class="row g-3">
+
+
+                            <!-- URI -->
+                            <div class="col-12">
+
+                                <label
+                                    for="mongoUri"
+                                    class="form-label"
+                                >
+                                    URI de conexión
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="mongoUri"
+                                    value="mongodb://localhost:27017"
+                                    placeholder="mongodb://localhost:27017"
+                                    required
+                                >
+
+                                <div class="form-help">
+                                    Dirección utilizada para establecer
+                                    comunicación con el servidor MongoDB.
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- BASE DESTINO -->
+                            <div class="col-12">
+
+                                <label
+                                    for="mongoDatabase"
+                                    class="form-label"
+                                >
+                                    Base de datos de destino
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="mongoDatabase"
+                                    placeholder="Ej. migracion_destino"
+                                    required
+                                >
+
+                                <div class="form-help">
+                                    La base será utilizada para almacenar
+                                    las colecciones generadas durante
+                                    la migración.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div
+                            id="mensajeMongoDB"
+                            class="connection-message d-none"
+                        >
+                        </div>
+
+
+
+                        <button
+                            type="submit"
+                            id="btnProbarMongoDB"
+                            class="btn test-button"
+                        >
+                            <i class="bi bi-plug"></i>
+                            Probar conexión
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+            </section>
+
+        </section>
+
+
+
+        <!-- =====================================
+             PASO 2
+             ESQUEMA
+        ====================================== -->
+        <section
+            id="pasoEsquema"
+            class="d-none"
+        >
+
+
+            <!-- ENCABEZADO DEL ESQUEMA -->
+            <div class="schema-header">
+
+                <div>
+
+                    <span class="page-label">
+                        ESQUEMA DE ORIGEN
+                    </span>
+
+                    <h2>
+                        Seleccionar estructuras
+                    </h2>
+
+                    <p>
+                        Selecciona las tablas de PostgreSQL
+                        que deseas incluir en la migración.
+                    </p>
+
+                </div>
+
+
+
+                <!-- RESUMEN -->
+                <div class="schema-summary">
+
+                    <div>
+
+                        <strong id="totalTablasDetectadas">
+                            0
+                        </strong>
+
+                        <span>
+                            Tablas detectadas
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong id="totalTablasSeleccionadas">
+                            0
+                        </strong>
+
+                        <span>
+                            Seleccionadas
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BARRA DE HERRAMIENTAS -->
+            <div class="schema-toolbar">
+
+
+                <!-- BASE ORIGEN -->
+                <div class="schema-database">
+
+                    <i class="bi bi-database"></i>
+
+                    <div>
+
+                        <span>
+                            Base de datos de origen
+                        </span>
+
+                        <strong id="nombreBaseOrigen">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ACCIONES -->
+                <div class="schema-toolbar-actions">
+
+                    <button
+                        type="button"
+                        id="btnSeleccionarTodas"
+                        class="btn schema-action-button"
+                    >
+                        <i class="bi bi-check2-square"></i>
+                        Seleccionar todas
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnDeseleccionarTodas"
+                        class="btn schema-action-button"
+                    >
+                        <i class="bi bi-square"></i>
+                        Deseleccionar
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MENSAJE DE ERROR -->
+            <div
+                id="mensajeEsquema"
+                class="schema-message d-none"
+            >
+            </div>
+
+
+
+            <!-- TABLAS GENERADAS POR JAVASCRIPT -->
+            <div
+                id="contenedorTablas"
+                class="schema-table-list"
+            >
+            </div>
+
+
+        </section>
+                <!-- =====================================
+             PASO 3
+             TRANSFORMACIÓN
+        ====================================== -->
+        <section
+            id="pasoTransformacion"
+            class="d-none"
+        >
+
+            <div class="transformation-header">
+
+                <div>
+                    <span class="page-label">
+                        REGLAS DE TRANSFORMACIÓN
+                    </span>
+
+                    <h2>
+                        Configurar transformación
+                    </h2>
+
+                    <p>
+                        Revisa el mapeo de tablas, campos y relaciones
+                        antes de ejecutar la migración hacia MongoDB.
+                    </p>
+                </div>
+
+
+                <div class="transformation-summary">
+
+                    <div>
+                        <strong id="totalColecciones">
+                            0
+                        </strong>
+
+                        <span>
+                            Colecciones
+                        </span>
+                    </div>
+
+                    <div>
+                        <strong id="totalRelaciones">
+                            0
+                        </strong>
+
+                        <span>
+                            Relaciones
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMACIÓN DE DESTINO -->
+            <div class="transformation-toolbar">
+
+                <div class="transformation-database">
+
+                    <i class="bi bi-database-fill-check"></i>
+
+                    <div>
+                        <span>
+                            Base de datos MongoDB
+                        </span>
+
+                        <strong id="nombreBaseDestino">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div class="transformation-status">
+                    <i class="bi bi-check-circle"></i>
+                    Propuesta generada
+                </div>
+
+            </div>
+
+
+            <div class="transformation-notice">
+
+                <i class="bi bi-info-circle"></i>
+
+                <div>
+                    <strong>
+                        Mapeo automático
+                    </strong>
+
+                    <span>
+                        DataBridge ha generado una propuesta inicial.
+                        Puedes modificar el nombre de las colecciones
+                        y definir cómo tratar las relaciones detectadas.
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- CONTENEDOR DINÁMICO -->
+            <div
+                id="contenedorTransformaciones"
+                class="transformation-list"
+            >
+            </div>
+
+        </section>
+
+        <!-- =====================================
+     PASO 4
+     MIGRACIÓN
+====================================== -->
+<section
+    id="pasoMigracion"
+    class="d-none"
+>
+
+    <div class="migration-execution-header">
+
+        <div>
+            <span class="page-label">
+                EJECUCIÓN DE MIGRACIÓN
+            </span>
+
+            <h2>
+                Migrar datos
+            </h2>
+
+            <p>
+                Revisa la configuración antes de iniciar
+                la transferencia de datos desde PostgreSQL
+                hacia MongoDB.
+            </p>
+        </div>
+
+        <div
+            id="estadoMigracion"
+            class="migration-execution-status ready"
+        >
+            <i class="bi bi-clock"></i>
+            Lista para ejecutar
+        </div>
+
+    </div>
+
+
+    <!-- RESUMEN -->
+    <div class="migration-summary-grid">
+
+        <div class="migration-summary-card">
+
+            <i class="bi bi-database"></i>
+
+            <div>
+                <span>Base de origen</span>
+
+                <strong id="resumenBaseOrigen">
+                    -
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="migration-summary-card">
+
+            <i class="bi bi-database-fill-check"></i>
+
+            <div>
+                <span>Base de destino</span>
+
+                <strong id="resumenBaseDestino">
+                    -
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="migration-summary-card">
+
+            <i class="bi bi-table"></i>
+
+            <div>
+                <span>Tablas a migrar</span>
+
+                <strong id="resumenTotalTablas">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="migration-summary-card">
+
+            <i class="bi bi-diagram-3"></i>
+
+            <div>
+                <span>Relaciones configuradas</span>
+
+                <strong id="resumenTotalRelaciones">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADVERTENCIA -->
+    <div class="migration-warning">
+
+        <i class="bi bi-exclamation-triangle"></i>
+
+        <div>
+            <strong>
+                Antes de continuar
+            </strong>
+
+            <span>
+                Las colecciones de destino involucradas
+                en esta migración serán reemplazadas con
+                los datos provenientes de PostgreSQL.
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- DETALLE -->
+    <div class="migration-execution-panel">
+
+        <div class="migration-execution-title">
+
+            <div>
+                <span>PROCESO</span>
+
+                <h3>
+                    PostgreSQL
+                    <i class="bi bi-arrow-right"></i>
+                    MongoDB
+                </h3>
+            </div>
+
+        </div>
+
+
+        <div
+            id="listaMigracion"
+            class="migration-execution-list"
+        >
+        </div>
+
+
+        <div class="migration-start-area">
+
+            <button
+                type="button"
+                id="btnEjecutarMigracion"
+                class="btn execute-migration-button"
+            >
+                <i class="bi bi-play-fill"></i>
+                Ejecutar migración
+            </button>
+            <!-- VALIDACIÓN INDEPENDIENTE -->
+<button
+    type="button"
+    id="btnValidarIntegridad"
+    class="btn btn-outline-primary mt-3"
+    disabled
+>
+    <i class="bi bi-shield-check"></i>
+    Validar integridad
+</button>
+
+            <span>
+                El proceso comenzará únicamente
+                cuando confirmes esta acción.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULTADO -->
+    <div
+        id="resultadoMigracion"
+        class="migration-result d-none"
+    >
+    </div>
+
+</section>
+<!-- =====================================
+     PASO 5
+     VALIDACIÓN Y RESULTADOS
+====================================== -->
+<section
+    id="pasoValidacion"
+    class="d-none"
+>
+
+    <div class="migration-execution-header">
+        <div>
+            <span class="page-label">
+                VALIDACIÓN DE DATOS
+            </span>
+
+            <h2>
+                Resultados de validación
+            </h2>
+
+            <p>
+                Consulta la integridad de los datos
+                migrados desde PostgreSQL hacia MongoDB.
+            </p>
+        </div>
+    </div>
+
+    <div id="mensajeEsperaValidacion" class="alert alert-info d-none">
+    <i class="bi bi-shield-check"></i>
+    Los resultados de validación se mostrarán
+    cuando finalice el análisis de integridad.
+</div>
+
+    <div
+        id="contenedorResultadosValidacion"
+        class="mt-4"
+    >
+    </div>
+
+</section>
+
+
+
+        <!-- =====================================
+             ACCIONES INFERIORES
+        ====================================== -->
+        <section class="bottom-actions">
+
+
+            <button
+                type="button"
+                id="btnVolver"
+                class="btn back-button"
+            >
+                <i class="bi bi-arrow-left"></i>
+                Volver al dashboard
+            </button>
+
+
+
+            <button
+                type="button"
+                id="btnContinuar"
+                class="btn continue-button"
+                disabled
+            >
+                Continuar
+                <i class="bi bi-arrow-right"></i>
+            </button>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT DE LA APLICACIÓN
+    ========================================== -->
+
+    <script src="/js/migracion.js"></script>
+
+</body>
+
+</html>
